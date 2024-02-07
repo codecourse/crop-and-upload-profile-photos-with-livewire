@@ -11,6 +11,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "livewire/volt": "^1.0",
+        "spatie/image": "^3.3",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

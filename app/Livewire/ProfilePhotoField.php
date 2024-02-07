@@ -7,6 +7,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\Image\Image;
 
 class ProfilePhotoField extends Component
 {
@@ -22,7 +23,13 @@ class ProfilePhotoField extends Component
     #[On('croppedImageReady')]
     public function handleCroppedImage($croppedBlob, $cropRegions)
     {
+        Image::load($this->image->getRealPath())
+            ->manualCrop($cropRegions['width'], $cropRegions['height'], $cropRegions['x'], $cropRegions['y'])
+            ->save();
+
         $this->croppedBlob = $croppedBlob;
+
+        // dispatch
     }
 
     public function updatedImage()
