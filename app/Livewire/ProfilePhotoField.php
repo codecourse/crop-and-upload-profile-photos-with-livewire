@@ -16,6 +16,13 @@ class ProfilePhotoField extends Component
     #[Validate('image|max:1024')]
     public $image;
 
+    public function updatedImage()
+    {
+        $this->dispatch('openModal', 'profile-photo-modal', [
+            'temporaryUrl' => $this->image->temporaryUrl()
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.profile-photo-field');
