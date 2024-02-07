@@ -41,6 +41,8 @@ class ProfilePhotoField extends Component
 
     public function updatedImage()
     {
+        $this->dispatch('profilePhoto', $this->image->getRealPath());
+
         $this->dispatch('openModal', 'profile-photo-modal', [
             'temporaryUrl' => $this->image->temporaryUrl()
         ]);
