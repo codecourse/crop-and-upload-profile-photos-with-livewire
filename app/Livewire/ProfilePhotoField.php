@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -15,6 +16,14 @@ class ProfilePhotoField extends Component
 
     #[Validate('image|max:1024')]
     public $image;
+
+    public string $croppedBlob;
+
+    #[On('croppedImageReady')]
+    public function handleCroppedImage($croppedBlob, $cropRegions)
+    {
+        $this->croppedBlob = $croppedBlob;
+    }
 
     public function updatedImage()
     {
