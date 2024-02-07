@@ -26,6 +26,11 @@ new class extends Component
     #[On('profilePhoto')]
     public function setProfilePhoto($profilePhotoUrl)
     {
+        if (!$profilePhotoUrl) {
+            $this->profilePhoto = null;
+            return;
+        }
+
         $this->profilePhoto = new TemporaryUploadedFile($profilePhotoUrl, config('filesystems.default'));
     }
 

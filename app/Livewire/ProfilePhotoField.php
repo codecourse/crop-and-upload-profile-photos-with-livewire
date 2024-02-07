@@ -18,7 +18,7 @@ class ProfilePhotoField extends Component
     #[Validate('image|max:1024')]
     public $image;
 
-    public string $croppedBlob;
+    public ?string $croppedBlob;
 
     #[On('croppedImageReady')]
     public function handleCroppedImage($croppedBlob, $cropRegions)
@@ -30,6 +30,13 @@ class ProfilePhotoField extends Component
         $this->croppedBlob = $croppedBlob;
 
         $this->dispatch('profilePhoto', $this->image->getRealPath());
+    }
+
+    public function clearImage()
+    {
+        $this->image = null;
+        $this->croppedBlob = null;
+        $this->dispatch('profilePhoto', null);
     }
 
     public function updatedImage()
