@@ -29,7 +29,7 @@ class ProfilePhotoField extends Component
 
         $this->croppedBlob = $croppedBlob;
 
-        // dispatch
+        $this->dispatch('profilePhoto', $this->image->getRealPath());
     }
 
     public function updatedImage()

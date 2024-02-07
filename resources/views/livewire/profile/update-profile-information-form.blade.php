@@ -5,11 +5,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use Livewire\Attributes\On;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 new class extends Component
 {
     public string $name = '';
     public string $email = '';
+    public $profilePhoto;
 
     /**
      * Mount the component.
@@ -18,6 +21,12 @@ new class extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+    }
+
+    #[On('profilePhoto')]
+    public function setProfilePhoto($profilePhotoUrl)
+    {
+        $this->profilePhoto = new TemporaryUploadedFile($profilePhotoUrl, config('filesystems.default'));
     }
 
     /**
@@ -36,6 +45,10 @@ new class extends Component
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+
+        if ($this->profilePhoto) {
+            $user->profile_photo_url = $this->profilePhoto->storePublicly('profile_photos', 'public');
         }
 
         $user->save();
