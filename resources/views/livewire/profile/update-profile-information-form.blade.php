@@ -106,6 +106,8 @@ new class extends Component
             @endif
         </div>
 
+        <livewire:profile-photo-field :model="auth()->user()" />
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
